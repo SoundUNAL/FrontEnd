@@ -1,12 +1,12 @@
 class SongModel {
     List<_Song> _songs = [];
 
-    SongModel.fromJson(Map<String, dynamic> parsedJson) {
-    print(parsedJson['songs'].length);
+    SongModel.fromJson(List<dynamic> parsedJson) {
+    print(parsedJson.length);
 
     List<_Song> temp = [];
-    for (int i = 0; i < parsedJson['songs'].length; i++) {
-      _Song song = _Song(parsedJson['songs'][i]);
+    for (int i = 0; i < parsedJson.length; i++) {
+      _Song song = _Song(parsedJson[i]);
       temp.add(song);
     }
     _songs = temp;
