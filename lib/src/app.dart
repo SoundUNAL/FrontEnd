@@ -6,11 +6,10 @@ class App extends StatelessWidget {
     Widget build(BuildContext context) {
         
         return MaterialApp(
-        theme: ThemeData.dark(),
-        home: Scaffold(
-            body: SongList(),
-
-        ),
+			theme: ThemeData.dark(),
+			home: Scaffold(
+				body: SongList(),
+			),
         );
     }
 }
