@@ -1,26 +1,35 @@
 import 'dart:async';
-import 'package:http/http.dart' show Client;
-import 'dart:convert';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import '../models/songs_model.dart';
 
 class SongApiProvider {
+  Future<SongModel> fetchSongList() async {
 
-    Client client = Client();
+    final HttpLink httpLink = HttpLink('http://localhost:8000/graphql');
 
-    Future<SongModel> fetchSongList() async {
-        print("entered");
+    final GraphQLClient client = GraphQLClient(
+      cache: GraphQLCache(),
+      link: httpLink,
+    );
 
-        var url = Uri.parse("http://localhost:3000/songs");
-        final response = await client.get(url);
-        
-        print(response.body.toString());
-        if (response.statusCode == 200) {
-        // If the call to the server was successful, parse the JSON
-        return SongModel.fromJson(json.decode(response.body));
-
-        } else {
-        // If that call was not successful, throw an error.
-        throw Exception('Failed to load song');
+    final QueryOptions options = QueryOptions(
+      document: gql('''
+        query {
+          songs {
+            id
+            title
+          }
         }
+      '''),
+    );
+
+    final QueryResult result = await client.query(options);
+
+    if (result.hasException) {
+      throw Exception(result.exception.toString());
     }
-} 
+
+    final List<dynamic> songsData = result.data?['songs'] ?? [];
+    return SongModel.fromJson(songsData);
+  }
+}
