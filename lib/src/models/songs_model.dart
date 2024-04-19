@@ -26,16 +26,15 @@ class _Song {
     int _userid;
     int _version;
 
-    _Song(song) {
-        _id = song["id"];
-        _albumid = song["albumid"];
-        _audioid = song["audioid"];
-        _lyrics = song["lyrics"];
-        _publicationDate = song["publicationDate"];
-        _title = song["title"];
-        _userid = song["userid"];
+    _Song(song)
+      : _id = song["id"],
+        _albumid = song["albumid"],
+        _audioid = song["audioid"],
+        _lyrics = song["lyrics"],
+        _publicationDate = song["publicationDate"],
+        _title = song["title"],
+        _userid = song["userid"],
         _version = song["version"];
-    }
 
     int get version => _version;
     int get userid => _userid;

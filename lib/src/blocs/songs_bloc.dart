@@ -6,7 +6,7 @@ class SongsBloc {
   final _repository = Repository();
   final _songsFetcher = PublishSubject<SongModel>();
 
-  Observable<SongModel> get allSongs => _songsFetcher.stream;
+  Stream<SongModel> get allSongs => _songsFetcher.stream;
 
   fetchAllSongs() async {
     SongModel songModel = await _repository.fetchAllSongs();
