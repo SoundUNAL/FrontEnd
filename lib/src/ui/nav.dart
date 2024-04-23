@@ -13,7 +13,7 @@ class NavBar extends StatelessWidget {
         child: Row(
             children: [
             IconButton(
-              icon: Image.asset('../../../images/soUnd_logo.png'), // Cambia 'assets/imagen.png' por la ruta de tu imagen PNG
+              icon: Image.asset('images/soUNd_logo.png'),
               tooltip: 'SoUNd',
               onPressed: null,
             ),
