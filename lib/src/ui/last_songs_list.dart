@@ -65,10 +65,6 @@ class LastSongList extends StatelessWidget {
                       ),
                     ),
                   ),
-                if (song.userid != null)
-                  Center(
-                    child: Text("Author ID: ${song.userid}"),
-                  ),
               ],
             );
           },
