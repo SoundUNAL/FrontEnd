@@ -8,7 +8,9 @@ class LastSongList extends StatelessWidget {
   Widget build(BuildContext context) {
     bloc.fetchAllSongs();
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 2, 2, 2),
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 2, 2, 2),
         title: const Text('Lo más reciente'),
       ),
       body: StreamBuilder(
@@ -71,7 +73,7 @@ class LastSongList extends StatelessWidget {
             );
           },
           options: CarouselOptions(
-            height: 400,
+            height: 300,
             enlargeCenterPage: true,
             viewportFraction: viewportFraction,
           ),

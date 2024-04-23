@@ -8,7 +8,9 @@ class SongList extends StatelessWidget {
   Widget build(BuildContext context) {
     bloc.fetchAllSongs();
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 2, 2, 2),
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 2, 2, 2),
         title: const Text('Descubre'),
       ),
       body: StreamBuilder(
