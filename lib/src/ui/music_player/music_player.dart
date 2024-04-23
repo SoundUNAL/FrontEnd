@@ -8,9 +8,9 @@ class MusicPlayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      /*appBar: AppBar(
         title: const Text('SoUNd Music Player'),
-      ),
+      ),*/
       body: Center(
           child: Padding(
         padding: const EdgeInsets.only(left: 8.0, right: 8.0),

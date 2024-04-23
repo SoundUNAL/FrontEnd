@@ -19,7 +19,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
-      home: Scaffold(
+      home: const Scaffold(
         body: MusicPlayer(),
       )
     );

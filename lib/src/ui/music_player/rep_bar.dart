@@ -77,7 +77,7 @@ class RepBar extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.comment),
             onPressed: () {
-              // Lógica para mostrar comentarios o activar la función de comentarios
+              showComments(context);
             },
           ),
           IconButton(
@@ -96,4 +96,23 @@ class RepBar extends StatelessWidget {
       ),
     );
   }
+}
+
+void showComments(BuildContext context) {
+  showModalBottomSheet(
+    context: context,
+    builder: (BuildContext context) {
+      return FractionallySizedBox(
+        heightFactor: 1, // Altura del bottom sheet
+        child: ListView(
+          children: const [
+            ListTile(
+              title: Text('Comentario 1'),
+            ),
+
+          ],
+        ),
+      );
+    },
+  );
 }
