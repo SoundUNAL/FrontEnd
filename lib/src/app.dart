@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'ui/songs_list.dart';
+import 'ui/last_songs_list.dart';
+import 'ui/nav.dart';
 
 class App extends StatelessWidget {
     @override
@@ -8,7 +10,24 @@ class App extends StatelessWidget {
         return MaterialApp(
 			theme: ThemeData.dark(),
 			home: Scaffold(
-				body: SongList(),
+				body: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                        Expanded(
+                            child: NavBar(
+                                title: Text("SoUNd"),
+                            ),
+                        ),
+                        Expanded(
+                            child: SongList(),
+                            flex: 10,
+                        ),
+                        Expanded(
+                          child: LastSongList(),
+                          flex: 10,
+                        ),
+                    ],
+                ),
 			),
         );
     }
