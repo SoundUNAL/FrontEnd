@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:sound_frontend/src/ui/music_player/music_player.dart';
 import '../models/songs_model.dart';
 import '../blocs/songs_bloc.dart';
 
@@ -42,12 +43,22 @@ class SongList extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 if (song?.imageUrl != null)
-                  Center(
-                    child: Image.network(
-                      song!.imageUrl!,
-                      height: 200,
-                      width: 200,
-                      fit: BoxFit.cover,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MusicPlayer(),
+                        ),
+                      );
+                    },
+                    child: Center(
+                      child: Image.network(
+                        song!.imageUrl!,
+                        height: 200,
+                        width: 200,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 if (song?.title != null) 

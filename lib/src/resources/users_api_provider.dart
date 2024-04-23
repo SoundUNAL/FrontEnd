@@ -71,13 +71,13 @@ class UserApiProvider {
         return false;
       } else {
         print(message);
-        if (!message.contains('sesion')) {
+        /*if (!message.contains('sesion')) {
         // Si no contiene la palabra "sesion", establecer una cookie en el WebView
         final cookieManager = WebviewCookieManager();
         cookieManager.setCookies([
           Cookie('cookie', message, /*domain: 'URL_del_sitio_web'*/),
         ]);
-      }
+      }*/
         return true;
         // Puedes realizar alguna acción adicional si lo deseas
       }

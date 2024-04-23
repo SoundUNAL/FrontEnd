@@ -80,15 +80,15 @@ class App extends StatelessWidget {
       home: const Scaffold(
         body: MusicPlayer(),
       )
-    );
+    );  
   }*/
-  /*Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark(),
-      home: const Scaffold(
-        body: LoginScreen(),
-      )
-    );
-  }*/
+  // Widget build(BuildContext context) {
+  //   return MaterialApp(
+  //     debugShowCheckedModeBanner: false,
+  //     theme: ThemeData.dark(),
+  //     home: const Scaffold(
+  //       body: LoginScreen(),
+  //     )
+  //   );
+  // }
 }

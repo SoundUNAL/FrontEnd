@@ -7,6 +7,17 @@ class MusicPlayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark(),
+      home: Scaffold(
+        body: buildPage(context),
+      )
+    );
+  }
+
+  Widget buildPage(BuildContext context) {
     return Scaffold(
       /*appBar: AppBar(
         title: const Text('SoUNd Music Player'),
@@ -24,7 +35,7 @@ class MusicPlayer extends StatelessWidget {
               height: 16.0,
             ),
             Image.asset(
-              'images/prueba.jpg',
+              'images/dino1.png',
               height: 400,
               fit: BoxFit.cover,
             ),

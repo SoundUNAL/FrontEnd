@@ -3,6 +3,7 @@ import 'package:sound_frontend/src/ui/signup/signup_screen.dart';
 import 'package:sound_frontend/src/ui/utils/has_account.dart';
 import '../../blocs/user_bloc.dart';
 import '../../models/user_model.dart';
+import 'package:sound_frontend/src/app.dart';
 
 final TextEditingController _passwordController = TextEditingController();
 final TextEditingController _usernameController = TextEditingController();
@@ -53,9 +54,18 @@ const LoginForm({ Key? key }) : super(key: key);
               var password = _passwordController.text;
               
               userBloc.loginUser(username, password);
+               
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return App();
+                  },
+                ),
+              );
 
 
-              
+      
             },
             child: Text(
               "Login".toUpperCase(),

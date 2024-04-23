@@ -6,6 +6,18 @@ class SignupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark(),
+      home: Scaffold(
+        body: buildPage(context),
+      )
+    );
+  }
+
+  
+  Widget buildPage(BuildContext context) {
     return Column(
       children: [
         const Text(

@@ -1,8 +1,10 @@
 import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sound_frontend/src/models/comments_model.dart';
 import '../../blocs/comments_bloc.dart';
+import 'package:soundpool/soundpool.dart';
 
 class RepBar extends StatelessWidget {
   const RepBar({Key? key}) : super(key: key);
@@ -26,6 +28,7 @@ class RepBar extends StatelessWidget {
           IconButton(
             onPressed: () {
               // play
+              //soundbutton();
             },
             icon: const Icon(Icons.play_circle_fill_rounded),
             iconSize: 40,
@@ -100,6 +103,16 @@ class RepBar extends StatelessWidget {
       ),
     );
   }
+  
+  /*Future<void> soundbutton() async {
+    Soundpool pool = Soundpool(streamType: StreamType.music);
+    int soundId = await rootBundle
+      .load('assets/sounds/Y2K_bbno_-_Lalala_Official_Video.mp3')
+      .then((ByteData soundData) {
+        return pool.load(soundData);
+      });
+      int streamId = await pool.play(soundId);
+  }*/
 }
 
 void showComments(BuildContext context) {
