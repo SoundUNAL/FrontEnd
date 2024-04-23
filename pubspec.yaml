@@ -41,6 +41,9 @@ dependencies:
   http: ^0.13.3
   graphql_flutter: ^5.1.2
   graphql: ^5.1.3
+  popover: ^0.3.0
+  flutter_dropzone: ^4.0.0
+
   carousel_slider: ^4.0.0
   flutter_svg: ^1.1.0
   webview_cookie_manager: ^2.0.6
