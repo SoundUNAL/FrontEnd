@@ -18,6 +18,8 @@ class SongApiProvider {
           songs {
             id
             title
+            userid
+            imageUrl
           }
         }
       '''),
