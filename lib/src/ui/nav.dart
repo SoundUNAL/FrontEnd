@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sound_frontend/src/ui/button_notis.dart';
+import 'package:sound_frontend/src/ui/login/login_screen.dart';
 
 class NavBar extends StatelessWidget {
     const NavBar({required this.title, super.key});
@@ -13,9 +15,16 @@ class NavBar extends StatelessWidget {
         child: Row(
             children: [
             IconButton(
-              icon: Image.asset('../../../images/soUnd_logo.png'), // Cambia 'assets/imagen.png' por la ruta de tu imagen PNG
+              icon: Image.asset('images/soUNd_logo.png'),
               tooltip: 'SoUNd',
-              onPressed: null,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const LoginScreen(),
+                  ),
+                );// Esto enviará al usuario de vuelta a la pantalla anterior
+              },
             ),
             
             Expanded(
@@ -33,6 +42,13 @@ class NavBar extends StatelessWidget {
               onPressed: null,
               iconSize: 60,
             ),
+            const ButtonNotis(),
+            // const IconButton(
+            //   icon: Icon(Icons.notifications),
+            //   tooltip: 'Notifications',
+            //   onPressed: null,
+            //   iconSize: 60,
+            // ),
             ],
         ),
         );
