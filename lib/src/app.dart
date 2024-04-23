@@ -66,4 +66,29 @@ class App extends StatelessWidget {
   //     )
   //   );
   // }
+    /*return MaterialApp(
+      theme: ThemeData.dark(),
+      home: Scaffold(
+        body: SongList(),
+      ),
+    );
+  }*/
+  /*Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark(),
+      home: const Scaffold(
+        body: MusicPlayer(),
+      )
+    );
+  }*/
+  /*Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark(),
+      home: const Scaffold(
+        body: LoginScreen(),
+      )
+    );
+  }*/
 }

@@ -1,4 +1,8 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
+import 'package:sound_frontend/src/models/comments_model.dart';
+import '../../blocs/comments_bloc.dart';
 
 class RepBar extends StatelessWidget {
   const RepBar({Key? key}) : super(key: key);
@@ -77,7 +81,7 @@ class RepBar extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.comment),
             onPressed: () {
-              // Lógica para mostrar comentarios o activar la función de comentarios
+              showComments(context);
             },
           ),
           IconButton(
@@ -97,3 +101,36 @@ class RepBar extends StatelessWidget {
     );
   }
 }
+
+void showComments(BuildContext context) {
+  bloc.fetchComments();
+  showModalBottomSheet(
+    context: context,
+    builder: (BuildContext context) {
+      return StreamBuilder<CommentModel>(
+        stream: bloc.allComments, 
+        builder: (BuildContext context, AsyncSnapshot<CommentModel> snapshot){
+          if(snapshot.hasData){
+            return FractionallySizedBox(
+              heightFactor: 1, // Altura del bottom sheet
+              child: ListView.builder(
+                itemCount: snapshot.data?.comments.length,
+                itemBuilder: (BuildContext context, int index){
+                  return ListTile(
+                    title: Text(snapshot.data?.comments[index].comment as String),
+                  );
+                }
+              )
+            );
+            
+          } else if (snapshot.hasError){
+            return const Center(child: Text('Error al obtener los comentarios'));
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+        }
+      );
+    },
+  );
+}
+

@@ -1,6 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:sound_frontend/src/ui/login/login_screen.dart';
 import 'package:sound_frontend/src/ui/utils/has_account.dart';
+import '../../blocs/user_bloc.dart';
+import "../../models/user_model.dart";
+
+final TextEditingController _nameController = TextEditingController();
+final TextEditingController _lastNameController = TextEditingController();
+final TextEditingController _emailController = TextEditingController();
+final TextEditingController _usernameController = TextEditingController();
+final TextEditingController _passwordController = TextEditingController();
+final TextEditingController _phoneNumberController = TextEditingController();
+final TextEditingController _dateController = TextEditingController();
+String? _selectedRole;
 
 class SignupForm extends StatefulWidget {
   const SignupForm({super.key});
@@ -11,13 +22,12 @@ class SignupForm extends StatefulWidget {
 
 const List<String> rolelist = <String>['Oyente', 'Artista'];
 
-final TextEditingController _dateController = TextEditingController();
-
 class _SignupFormState extends State<SignupForm> {
   @override
   Widget build(BuildContext context) {
     var col1 = [
       TextFormField(
+        controller: _nameController,
         keyboardType: TextInputType.name,
         textInputAction: TextInputAction.next,
         cursorColor: Colors.orange,
@@ -31,6 +41,7 @@ class _SignupFormState extends State<SignupForm> {
         ),
       ),
       TextFormField(
+        controller: _lastNameController,
         keyboardType: TextInputType.name,
         textInputAction: TextInputAction.next,
         cursorColor: Colors.orange,
@@ -44,6 +55,7 @@ class _SignupFormState extends State<SignupForm> {
         ),
       ),
       TextFormField(
+        controller: _emailController,
         keyboardType: TextInputType.emailAddress,
         textInputAction: TextInputAction.next,
         cursorColor: Colors.orange,
@@ -57,6 +69,7 @@ class _SignupFormState extends State<SignupForm> {
         ),
       ),
       TextFormField(
+        controller: _usernameController,
         keyboardType: TextInputType.name,
         textInputAction: TextInputAction.next,
         cursorColor: Colors.orange,
@@ -72,6 +85,7 @@ class _SignupFormState extends State<SignupForm> {
     ];
     var col2 = [
       TextFormField(
+        controller: _passwordController,
         textInputAction: TextInputAction.done,
         obscureText: true,
         cursorColor: Colors.orange,
@@ -84,6 +98,7 @@ class _SignupFormState extends State<SignupForm> {
         ),
       ),
       TextFormField(
+        controller: _phoneNumberController,
         keyboardType: TextInputType.phone,
         textInputAction: TextInputAction.next,
         cursorColor: Colors.orange,
@@ -99,6 +114,7 @@ class _SignupFormState extends State<SignupForm> {
       const SelectBirthDate(),
       const SelectRole(),
     ];
+
     return Form(
       child: Column(
         children: [
@@ -124,7 +140,36 @@ class _SignupFormState extends State<SignupForm> {
           ),
           const SizedBox(height: 16),
           ElevatedButton(
-            onPressed: () {},
+            //Pls call the user  data here
+
+            onPressed: () {
+              String roleNum;
+              if(_selectedRole == "Oyente"){
+                roleNum = "3";
+              }
+              else{
+                roleNum = "2";
+              }
+              User user = User(
+                name: _nameController.text,
+                lastname: _lastNameController.text,
+                email: _emailController.text,
+                username: _usernameController.text,
+                password: _passwordController.text,
+                phone: _phoneNumberController.text,
+                birthdate: _dateController.text,
+                role: roleNum,
+              );
+              userBloc.createUser(user);
+              _nameController.clear();
+              _lastNameController.clear();
+              _emailController.clear();
+              _usernameController.clear();
+              _passwordController.clear();
+              _phoneNumberController.clear();
+              _dateController.clear();
+              _selectedRole = null;
+            },
             child: Text(
               "Sign Up".toUpperCase(),
             ),
@@ -197,7 +242,6 @@ class SelectRole extends StatefulWidget {
 }
 
 class _SelectRoleState extends State<SelectRole> {
-  String? _selectedRole;
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
