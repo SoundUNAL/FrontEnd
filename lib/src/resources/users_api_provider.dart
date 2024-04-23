@@ -16,16 +16,16 @@ class UserApiProvider {
     final MutationOptions post = MutationOptions(
       document: gql('''
         mutation {
-          signUser(input: {
+          signUser(
             username: "${user.username}",
             name: "${user.name}",
             lastname: "${user.lastname}",
             password: "${user.password}",
             email: "${user.email}",
-            birthday: "${user.birthdate}",
+            birthday: "1990-01-01T00:00:00Z",
             phone: "${user.phone}",
             role: "${user.role}"
-          })
+          )
         }
       '''),
     );

@@ -15,7 +15,7 @@ class App extends StatelessWidget {
       ),
     );
   }*/
-  Widget build(BuildContext context) {
+  /*Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
@@ -23,14 +23,14 @@ class App extends StatelessWidget {
         body: MusicPlayer(),
       )
     );
-  }
-  /*Widget build(BuildContext context) {
+  }*/
+  Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
       home: const Scaffold(
-        body: SignupScreen(),
+        body: LoginScreen(),
       )
     );
-  }*/
+  }
 }

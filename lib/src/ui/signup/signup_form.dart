@@ -161,6 +161,14 @@ class _SignupFormState extends State<SignupForm> {
                 role: roleNum,
               );
               userBloc.createUser(user);
+              _nameController.clear();
+              _lastNameController.clear();
+              _emailController.clear();
+              _usernameController.clear();
+              _passwordController.clear();
+              _phoneNumberController.clear();
+              _dateController.clear();
+              _selectedRole = null;
             },
             child: Text(
               "Sign Up".toUpperCase(),

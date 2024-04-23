@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:sound_frontend/src/ui/signup/signup_screen.dart';
 import 'package:sound_frontend/src/ui/utils/has_account.dart';
+import '../../blocs/user_bloc.dart';
+import '../../models/user_model.dart';
+
+final TextEditingController _passwordController = TextEditingController();
+final TextEditingController _usernameController = TextEditingController();
 
 class LoginForm extends StatelessWidget {
 const LoginForm({ Key? key }) : super(key: key);
@@ -11,12 +16,13 @@ const LoginForm({ Key? key }) : super(key: key);
       child: Column(
         children: [
           TextFormField(
-            keyboardType: TextInputType.emailAddress,
+            controller: _usernameController,
+            keyboardType: TextInputType.text,
             textInputAction: TextInputAction.next,
             cursorColor: Colors.orange,
-            onSaved: (email) {},
+            onSaved: (username) {},
             decoration: const InputDecoration(
-              hintText: "Email",
+              hintText: "Username",
               prefixIcon: Padding(
                 padding: EdgeInsets.all(16),
                 child: Icon(Icons.person),
@@ -26,6 +32,7 @@ const LoginForm({ Key? key }) : super(key: key);
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
             child: TextFormField(
+              controller: _passwordController,
               textInputAction: TextInputAction.done,
               obscureText: true,
               cursorColor: Colors.orange,
@@ -40,7 +47,13 @@ const LoginForm({ Key? key }) : super(key: key);
           ),
           const SizedBox(height: 16),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              
+              var username = _usernameController.text;
+              var password = _passwordController.text;
+              
+              userBloc.loginUser(username, password);
+            },
             child: Text(
               "Login".toUpperCase(),
             ),
