@@ -11,21 +11,22 @@ class App extends StatelessWidget {
 			theme: ThemeData.dark(),
 			home: Scaffold(
 				body: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                         Expanded(
                             child: NavBar(
                                 title: Text("SoUNd"),
                             ),
                         ),
-                        Expanded(
-                            child: SongList(),
-                            flex: 10,
+                        Container(
+                          height: 350,
+                          width: 1400,
+                          child: SongList(),
                         ),
-                        Expanded(
+                        Container(
+                          height: 300,
+                          width: 600,
                           child: LastSongList(),
-                          flex: 10,
-                        ),
+                        )
                     ],
                 ),
 			),

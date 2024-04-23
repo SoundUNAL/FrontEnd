@@ -27,48 +27,56 @@ class LastSongList extends StatelessWidget {
   }
 
   Widget buildLast5SongsCarousel(AsyncSnapshot<SongModel> snapshot) {
-    return CarouselSlider.builder(
-      itemCount: 5,
-      itemBuilder: (BuildContext context, int index, int realIndex) {
-        // Obtener las últimas 5 canciones
-        final last5Songs = snapshot.data!.songs.sublist(
-          snapshot.data!.songs.length - 5,
-          snapshot.data!.songs.length,
-        );
-        final song = last5Songs[index];
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (song.imageUrl != null)
-              Center(
-                child: Image.network(
-                  song.imageUrl!,
-                  height: 100,
-                  width: 100,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            if (song.title != null)
-              Center(
-                child: Text(
-                  song.title ?? '',
-                  style: const TextStyle(
-                    fontSize: 24,
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        double viewportFraction = 0.3;
+        if (constraints.maxWidth > 600) {
+          viewportFraction = 0.2;
+        }
+        return CarouselSlider.builder(
+          itemCount: 5,
+          itemBuilder: (BuildContext context, int index, int realIndex) {
+            // Obtener las últimas 5 canciones
+            final last5Songs = snapshot.data!.songs.sublist(
+              snapshot.data!.songs.length - 5,
+              snapshot.data!.songs.length,
+            );
+            final song = last5Songs[index];
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (song.imageUrl != null)
+                  Center(
+                    child: Image.network(
+                      song.imageUrl!,
+                      height: 100,
+                      width: 100,
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                ),
-              ),
-            if (song.userid != null)
-              Center(
-                child: Text("Author ID: ${song.userid}"),
-              ),
-          ],
+                if (song.title != null)
+                  Center(
+                    child: Text(
+                      song.title ?? '',
+                      style: const TextStyle(
+                        fontSize: 24,
+                      ),
+                    ),
+                  ),
+                if (song.userid != null)
+                  Center(
+                    child: Text("Author ID: ${song.userid}"),
+                  ),
+              ],
+            );
+          },
+          options: CarouselOptions(
+            height: 400,
+            enlargeCenterPage: true,
+            viewportFraction: viewportFraction,
+          ),
         );
       },
-      options: CarouselOptions(
-        height: 300,
-        enlargeCenterPage: true,
-        viewportFraction: 0.2,
-      ),
     );
   }
 }

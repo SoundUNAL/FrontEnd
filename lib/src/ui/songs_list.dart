@@ -8,6 +8,9 @@ class SongList extends StatelessWidget {
   Widget build(BuildContext context) {
     bloc.fetchAllSongs();
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Descubre'),
+      ),
       body: StreamBuilder(
         stream: bloc.allSongs,
         builder: (context, AsyncSnapshot<SongModel> snapshot) {
@@ -25,7 +28,7 @@ class SongList extends StatelessWidget {
   Widget buildCarouselSlider(AsyncSnapshot<SongModel> snapshot) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        double viewportFraction = 0.5;
+        double viewportFraction = 0.6;
         if (constraints.maxWidth > 600) {
           viewportFraction = 0.2;
         }
@@ -62,7 +65,7 @@ class SongList extends StatelessWidget {
             );
           },
           options: CarouselOptions(
-            height: 500,
+            height: 800,
             enlargeCenterPage: true,
             viewportFraction: viewportFraction,
           ),
