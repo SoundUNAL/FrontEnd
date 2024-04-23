@@ -7,14 +7,14 @@ import 'ui/music_player/music_player.dart';
 
 class App extends StatelessWidget {
   @override
-  /*Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.dark(),
       home: Scaffold(
         body: SongList(),
       ),
     );
-  }*/
+  }
   /*Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -24,7 +24,7 @@ class App extends StatelessWidget {
       )
     );
   }*/
-  Widget build(BuildContext context) {
+  /*Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
@@ -32,5 +32,5 @@ class App extends StatelessWidget {
         body: LoginScreen(),
       )
     );
-  }
+  }*/
 }

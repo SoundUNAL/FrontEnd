@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:graphql_flutter/graphql_flutter.dart';
 import '../models/user_model.dart';
+import 'package:webview_cookie_manager/webview_cookie_manager.dart';
 
 class UserApiProvider {
   late final GraphQLClient _client;
@@ -68,6 +71,13 @@ class UserApiProvider {
         return false;
       } else {
         print(message);
+        if (!message.contains('sesion')) {
+        // Si no contiene la palabra "sesion", establecer una cookie en el WebView
+        final cookieManager = WebviewCookieManager();
+        cookieManager.setCookies([
+          Cookie('cookie', message, /*domain: 'URL_del_sitio_web'*/),
+        ]);
+      }
         return true;
         // Puedes realizar alguna acción adicional si lo deseas
       }
