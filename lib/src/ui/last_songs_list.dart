@@ -3,7 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import '../models/songs_model.dart';
 import '../blocs/songs_bloc.dart';
 
-class SongList extends StatelessWidget {
+class LastSongList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bloc.fetchAllSongs();
@@ -11,13 +11,14 @@ class SongList extends StatelessWidget {
       backgroundColor: const Color.fromARGB(255, 2, 2, 2),
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 2, 2, 2),
-        title: const Text('Descubre'),
+        title: const Text('Lo más reciente'),
       ),
       body: StreamBuilder(
         stream: bloc.allSongs,
         builder: (context, AsyncSnapshot<SongModel> snapshot) {
           if (snapshot.hasData) {
-            return  buildCarouselSlider(snapshot);
+            return buildLast5SongsCarousel(snapshot);
+          
           } else if (snapshot.hasError) {
             return Text(snapshot.error.toString());
           }
@@ -27,33 +28,38 @@ class SongList extends StatelessWidget {
     );
   }
 
-  Widget buildCarouselSlider(AsyncSnapshot<SongModel> snapshot) {
+  Widget buildLast5SongsCarousel(AsyncSnapshot<SongModel> snapshot) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        double viewportFraction = 0.6;
+        double viewportFraction = 0.3;
         if (constraints.maxWidth > 600) {
           viewportFraction = 0.2;
         }
         return CarouselSlider.builder(
-          itemCount: snapshot.data?.songs.length ?? 0,
+          itemCount: 5,
           itemBuilder: (BuildContext context, int index, int realIndex) {
-            final song = snapshot.data?.songs[index];
+            // Obtener las últimas 5 canciones
+            final last5Songs = snapshot.data!.songs.sublist(
+              snapshot.data!.songs.length - 5,
+              snapshot.data!.songs.length,
+            );
+            final song = last5Songs[index];
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (song?.imageUrl != null)
+                if (song.imageUrl != null)
                   Center(
                     child: Image.network(
-                      song!.imageUrl!,
-                      height: 200,
-                      width: 200,
+                      song.imageUrl!,
+                      height: 100,
+                      width: 100,
                       fit: BoxFit.cover,
                     ),
                   ),
-                if (song?.title != null) 
+                if (song.title != null)
                   Center(
                     child: Text(
-                      song?.title ?? '',
+                      song.title ?? '',
                       style: const TextStyle(
                         fontSize: 24,
                       ),
@@ -63,7 +69,7 @@ class SongList extends StatelessWidget {
             );
           },
           options: CarouselOptions(
-            height: 800,
+            height: 300,
             enlargeCenterPage: true,
             viewportFraction: viewportFraction,
           ),
