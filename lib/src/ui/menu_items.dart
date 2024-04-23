@@ -10,17 +10,17 @@ class MenuItems extends StatelessWidget{
     return Column(
       children: [
         Container(
-          height: 60,
+          height: 120,
           color: Colors.black,
           child: const Text('Kenshi yonezu: Nueva canción en camino'),
         ),
         Container(
-          height: 60,
+          height: 120,
           color: Colors.black,
           child: const Text('DragonForce: Nueva bajista en el grupo'),
         ),
         Container(
-          height: 60,
+          height: 120,
           color: Colors.black,
           child: const Text('Symphony: Nuevo sencillo de Guilty Gear'),
         )

@@ -12,11 +12,11 @@ class ButtonNotis extends StatelessWidget{
       onTap: () => showPopover(
       context: context,
       bodyBuilder: (context)=> MenuItems(),
-      width: 250,
-      height: 180,
+      width: 500,
+      height: 330,
       direction: PopoverDirection.bottom,
       ),
-      child:const Icon(Icons.doorbell_outlined),
+      child:const Icon(Icons.notifications),
     );
   }
 
