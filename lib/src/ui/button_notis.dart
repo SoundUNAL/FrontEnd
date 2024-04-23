@@ -16,7 +16,7 @@ class ButtonNotis extends StatelessWidget{
       height: 180,
       direction: PopoverDirection.bottom,
       ),
-      child:const Icon(Icons.doorbell_outlined),
+      child:const Icon(Icons.notifications, size: 60),
     );
   }
 

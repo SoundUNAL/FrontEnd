@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sound_frontend/src/ui/button_notis.dart';
 import 'package:sound_frontend/src/ui/login/login_screen.dart';
 
 class NavBar extends StatelessWidget {
@@ -41,12 +42,13 @@ class NavBar extends StatelessWidget {
               onPressed: null,
               iconSize: 60,
             ),
-            const IconButton(
-              icon: Icon(Icons.notifications),
-              tooltip: 'Profile',
-              onPressed: null,
-              iconSize: 60,
-            ),
+            const ButtonNotis(),
+            // const IconButton(
+            //   icon: Icon(Icons.notifications),
+            //   tooltip: 'Notifications',
+            //   onPressed: null,
+            //   iconSize: 60,
+            // ),
             ],
         ),
         );
