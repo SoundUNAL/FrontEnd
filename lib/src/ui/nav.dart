@@ -43,12 +43,6 @@ class NavBar extends StatelessWidget {
               iconSize: 60,
             ),
             const ButtonNotis(),
-            // const IconButton(
-            //   icon: Icon(Icons.notifications),
-            //   tooltip: 'Notifications',
-            //   onPressed: null,
-            //   iconSize: 60,
-            // ),
             ],
         ),
         );
