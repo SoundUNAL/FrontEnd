@@ -18,7 +18,7 @@ class SongApiProvider {
           songs {
             id
             title
-            userid
+            audioid
             imageUrl
           }
         }

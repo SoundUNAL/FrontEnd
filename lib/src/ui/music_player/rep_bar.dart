@@ -1,5 +1,4 @@
-import 'dart:html';
-
+import 'dart:html' as html;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sound_frontend/src/models/comments_model.dart';
@@ -7,7 +6,7 @@ import '../../blocs/comments_bloc.dart';
 import 'package:soundpool/soundpool.dart';
 
 class RepBar extends StatelessWidget {
-  const RepBar({Key? key}) : super(key: key);
+  const RepBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +14,7 @@ class RepBar extends StatelessWidget {
       height: 500,
       width: double.infinity,
       color: const Color.fromARGB(255, 102, 49, 3),
-      padding: EdgeInsets.symmetric(horizontal: 20.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -28,7 +27,7 @@ class RepBar extends StatelessWidget {
           IconButton(
             onPressed: () {
               // play
-              //soundbutton();
+              soundbutton();
             },
             icon: const Icon(Icons.play_circle_fill_rounded),
             iconSize: 40,
@@ -104,15 +103,17 @@ class RepBar extends StatelessWidget {
     );
   }
   
-  /*Future<void> soundbutton() async {
-    Soundpool pool = Soundpool(streamType: StreamType.music);
-    int soundId = await rootBundle
-      .load('assets/sounds/Y2K_bbno_-_Lalala_Official_Video.mp3')
-      .then((ByteData soundData) {
-        return pool.load(soundData);
-      });
-      int streamId = await pool.play(soundId);
-  }*/
+  Future<void> soundbutton() async {
+    // URL del archivo de audio
+    const audioUrl = 'assets/sounds/Y2K_bbno_-_Lalala_Official_Video.mp3';
+
+    // Crear un elemento de audio
+    final audioElement = html.AudioElement(audioUrl);
+    // Cargar el audio
+    audioElement.load();
+    // Reproducir el audio
+    audioElement.play();
+  }
 }
 
 void showComments(BuildContext context) {
