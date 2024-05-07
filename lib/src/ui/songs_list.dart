@@ -3,6 +3,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:sound_frontend/src/ui/music_player/music_player.dart';
 import '../models/songs_model.dart';
 import '../blocs/songs_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+final storage = FlutterSecureStorage();
 
 class SongList extends StatelessWidget {
   @override
@@ -46,14 +49,34 @@ class SongList extends StatelessWidget {
               children: [
                 if (imageUrl.isNotEmpty)
                   GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MusicPlayer(imageUrl: imageUrl),
+                    onTap: () async {
+                      bool cookieExists = await _checkCookieExistence();
+                      if (cookieExists == false) {
+                          showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                          title: Text('Error de autenticación'),
+                          content: Text('Debes estar autenticado para realizar esta acción.'),
+                          actions: [
+                          TextButton(
+                          onPressed: () {
+                                Navigator.pop(context); // Cerrar el diálogo
+                          },
+                          child: Text('Aceptar'),
+                            ),
+                            ],
+                          ),  
+                          );
+                          } else {
+                              // Si la cookie existe, realizar la acción (navegar a la pantalla de reproducción de música)
+                          Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                          builder: (context) => MusicPlayer(imageUrl: imageUrl, context: context),
                         ),
-                      );
-                    },
+                      );  
+                      }
+                      },
                     child: Center(
                       child: Image.network(
                         imageUrl,
@@ -83,5 +106,15 @@ class SongList extends StatelessWidget {
         );
       },
     );
+  }
+
+
+  Future<bool> _checkCookieExistence() async {
+      String cookieValue = await storage.read(key: 'Token')  ?? 'No data found!';
+      if (cookieValue == 'No data found!') {
+        return false;
+      } else {
+        return true;
+      }
   }
 }

@@ -1,10 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:sound_frontend/src/ui/music_player/rep_bar.dart';
 import 'package:sound_frontend/src/ui/music_player/search.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:sound_frontend/src/ui/login/login_screen.dart';
+
+
+
 
 class MusicPlayer extends StatelessWidget {
+  final BuildContext context;
+  
+  final storage = FlutterSecureStorage();
   String imageUrl;
-  MusicPlayer({Key? key, required this.imageUrl}) : super(key: key);
+  MusicPlayer({Key? key, required this.imageUrl,  required this.context}) : super(key: key);
+
+  void initState() {
+    _verificarCookie();
+  }
+
+
+  Future<void> _verificarCookie() async {
+    // Verificar si existe la cookie en el almacenamiento seguro
+    String cookieValue = await storage.read(key: 'Token')  ?? 'No data found!';
+    print('\n');
+    
+    print(cookieValue);
+
+    if (cookieValue == 'No data found!') {
+      // Si la cookie no existe, mostrar una alerta
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Error de autenticación'),
+          content: Text('Debes estar autenticado para acceder a esta vista.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // Cerrar el diálogo
+                // Puedes redirigir a otra vista si lo deseas
+                Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+              },
+              child: Text('Aceptar'),
+            ),
+          ],
+        ),
+      );
+    }
+      
+  }
+
 
   @override
   Widget build(BuildContext context) {
