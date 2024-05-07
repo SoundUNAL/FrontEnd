@@ -39,22 +39,24 @@ class SongList extends StatelessWidget {
           itemCount: snapshot.data?.songs.length ?? 0,
           itemBuilder: (BuildContext context, int index, int realIndex) {
             final song = snapshot.data?.songs[index];
+            String imageUrl = song?.imageUrl ?? '';
+            imageUrl = imageUrl.replaceAll('host.docker.internal', 'localhost');
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (song?.imageUrl != null)
+                if (imageUrl.isNotEmpty)
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const MusicPlayer(),
+                          builder: (context) => MusicPlayer(imageUrl: imageUrl),
                         ),
                       );
                     },
                     child: Center(
                       child: Image.network(
-                        song!.imageUrl!,
+                        imageUrl,
                         height: 200,
                         width: 200,
                         fit: BoxFit.cover,

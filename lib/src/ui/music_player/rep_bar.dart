@@ -1,12 +1,67 @@
-import 'dart:html' as html;
+// import 'dart:html' as html;
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sound_frontend/src/models/comments_model.dart';
 import '../../blocs/comments_bloc.dart';
-import 'package:soundpool/soundpool.dart';
+// import 'package:soundpool/soundpool.dart';
 
-class RepBar extends StatelessWidget {
+class RepBar extends StatefulWidget {
   const RepBar({super.key});
+
+  @override
+  State<RepBar> createState() => _RepBarState();
+}
+
+class _RepBarState extends State<RepBar> {
+  final String path = 'http://localhost:8000/play';
+  final audioPlayer = AudioPlayer();
+  bool isPlaying = false;
+  bool inLoop = false;
+  Duration duration = Duration(seconds: 177); //239
+  Duration position = Duration.zero;
+  String audioId = '6631aa8916bf3bb1215da036';
+  int audioInt = 24;
+
+  @override
+  void initState(){
+    super.initState();
+    setAudio(audioId);
+
+    print('INIIIIIIIIIIIT');
+
+    // isPlaying?
+    audioPlayer.onPlayerStateChanged.listen((state) {
+      print('enters playing');
+      setState(() {
+        isPlaying = state == PlayerState.PLAYING; 
+      });
+    });
+
+
+    // duration
+    audioPlayer.onDurationChanged.listen((newDuration) {
+      print('enters duration');
+      setState(() {
+        duration = newDuration;
+      });
+    });
+
+    // rep time
+    audioPlayer.onAudioPositionChanged.listen((newPosition) {
+      print('enters pos');
+      setState(() {
+        position = newPosition;
+      });
+    });
+
+  }
+  
+  @override
+  void dispose(){
+    audioPlayer.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +80,18 @@ class RepBar extends StatelessWidget {
             icon: const Icon(Icons.skip_previous),
           ),
           IconButton(
-            onPressed: () {
+            onPressed: () async {
               // play
-              soundbutton();
+              //soundbutton();
+              if(isPlaying) {
+                await audioPlayer.pause();
+              } else {
+                await audioPlayer.resume();
+              }
             },
-            icon: const Icon(Icons.play_circle_fill_rounded),
+            icon: Icon(
+              isPlaying ? Icons.pause_circle_filled_rounded: Icons.play_circle_fill_rounded,
+            ),
             iconSize: 40,
           ),
           IconButton(
@@ -39,16 +101,21 @@ class RepBar extends StatelessWidget {
             icon: const Icon(Icons.skip_next),
           ),
           const SizedBox(width: 8.0),
-          Text('0:00', style: Theme.of(context).textTheme.bodySmall),
+          Text(formatTime(position),
+              style: Theme.of(context).textTheme.bodySmall),
           Expanded(
             child: Slider(
-              onChanged: (newValue) {
-                //lo descubriré
+              onChanged: (value) async {
+                final pos = Duration(seconds: value.toInt());
+                await audioPlayer.seek(pos);
               },
-              value: 0.0,
+              min: 0,
+              max: duration.inSeconds.toDouble(),
+              value: position.inSeconds.toDouble(),
             ),
           ),
-          Text('0:00', style: Theme.of(context).textTheme.bodySmall),
+          Text(formatTime(duration),
+              style: Theme.of(context).textTheme.bodySmall),
           const SizedBox(width: 8.0),
           IconButton(
             icon: const Icon(Icons.thumb_up),
@@ -69,9 +136,18 @@ class RepBar extends StatelessWidget {
             },
           ),
           IconButton(
-            icon: const Icon(Icons.repeat),
+            icon: Icon(
+              inLoop ? Icons.repeat_on: Icons.repeat,
+            ),
             onPressed: () {
               // Lógica para cambiar el modo de repetición
+              if(inLoop){
+                inLoop = false;
+                audioPlayer.setReleaseMode(ReleaseMode.STOP);
+              }else{
+                inLoop = true;
+                audioPlayer.setReleaseMode(ReleaseMode.LOOP);
+              }
             },
           ),
           IconButton(
@@ -83,7 +159,7 @@ class RepBar extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.comment),
             onPressed: () {
-              showComments(context);
+              showComments(context, audioInt);
             },
           ),
           IconButton(
@@ -102,49 +178,55 @@ class RepBar extends StatelessWidget {
       ),
     );
   }
-  
-  Future<void> soundbutton() async {
-    // URL del archivo de audio
-    const audioUrl = 'assets/sounds/Y2K_bbno_-_Lalala_Official_Video.mp3';
 
-    // Crear un elemento de audio
-    final audioElement = html.AudioElement(audioUrl);
-    // Cargar el audio
-    audioElement.load();
-    // Reproducir el audio
-    audioElement.play();
+  Future setAudio(audioId) async {
+    // String url = 'assets/sounds/Y2K_bbno_-_Lalala_Official_Video.mp3';
+    final player = AudioCache(prefix: 'sounds/');
+    final url = await player.load('Y2K_bbno_-_Lalala_Official_Video.mp3');
+    audioPlayer.setUrl(url.path, isLocal: true);
+    //String url ='$path/$audioId';
+    //audioPlayer.setUrl(url);
+    //int d = await audioPlayer.getDuration();
+    //duration = Duration(milliseconds: d);
   }
+
+
+  String formatTime(Duration rep_time) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    String min = twoDigits(rep_time.inMinutes.remainder(60));
+    String sec = twoDigits((rep_time.inSeconds.remainder(60)));
+    return '$min:$sec';
+  }
+  
 }
 
-void showComments(BuildContext context) {
-  bloc.fetchComments();
+void showComments(BuildContext context, audioInt) {
+  bloc.fetchComments(audioInt);
   showModalBottomSheet(
     context: context,
     builder: (BuildContext context) {
       return StreamBuilder<CommentModel>(
-        stream: bloc.allComments, 
-        builder: (BuildContext context, AsyncSnapshot<CommentModel> snapshot){
-          if(snapshot.hasData){
-            return FractionallySizedBox(
-              heightFactor: 1, // Altura del bottom sheet
-              child: ListView.builder(
-                itemCount: snapshot.data?.comments.length,
-                itemBuilder: (BuildContext context, int index){
-                  return ListTile(
-                    title: Text(snapshot.data?.comments[index].comment as String),
-                  );
-                }
-              )
-            );
-            
-          } else if (snapshot.hasError){
-            return const Center(child: Text('Error al obtener los comentarios'));
-          } else {
-            return const Center(child: CircularProgressIndicator());
-          }
-        }
-      );
+          stream: bloc.allComments,
+          builder:
+              (BuildContext context, AsyncSnapshot<CommentModel> snapshot) {
+            if (snapshot.hasData) {
+              return FractionallySizedBox(
+                  heightFactor: 1, // Altura del bottom sheet
+                  child: ListView.builder(
+                      itemCount: snapshot.data?.comments.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return ListTile(
+                          title: Text(
+                              snapshot.data?.comments[index].comment as String),
+                        );
+                      }));
+            } else if (snapshot.hasError) {
+              return const Center(
+                  child: Text('Error al obtener los comentarios'));
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          });
     },
   );
 }
-

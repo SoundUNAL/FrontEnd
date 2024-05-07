@@ -3,7 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import '../models/comments_model.dart';
 
 class CommentApiProvider {
-  Future<CommentModel> fetchSongList() async {
+  Future<CommentModel> fetchSongList(audioId) async {
     final HttpLink httpLink = HttpLink('http://localhost:8000/graphql');
 
     final GraphQLClient client = GraphQLClient(
@@ -14,7 +14,7 @@ class CommentApiProvider {
     final QueryOptions options = QueryOptions(
       document: gql('''
         query {
-          getComments(audioId: 24) {
+          getComments(audioId: $audioId) {
             comment
             userID
           }

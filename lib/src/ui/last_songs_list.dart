@@ -44,13 +44,15 @@ class LastSongList extends StatelessWidget {
               snapshot.data!.songs.length,
             );
             final song = last5Songs[index];
+            String imageUrl = song?.imageUrl ?? '';
+            imageUrl = imageUrl.replaceAll('host.docker.internal', 'localhost');
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (song.imageUrl != null)
+                if (imageUrl.isNotEmpty)
                   Center(
                     child: Image.network(
-                      song.imageUrl!,
+                      imageUrl,
                       height: 100,
                       width: 100,
                       fit: BoxFit.cover,

@@ -8,8 +8,8 @@ class CommentsBloc {
 
   Stream<CommentModel> get allComments => _commentsFetcher.stream;
 
-  fetchComments() async {
-    CommentModel commentModel = await _repository.fetchAllSongs();
+  fetchComments(audioId) async {
+    CommentModel commentModel = await _repository.fetchAllSongs(audioId);
     _commentsFetcher.sink.add(commentModel);
   }
 

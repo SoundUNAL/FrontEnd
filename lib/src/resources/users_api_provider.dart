@@ -51,7 +51,7 @@ class UserApiProvider {
     }
   }
 
-  Future<bool> login(String username, String password) async {
+  Future<String> login(String username, String password) async {
     final QueryOptions post = QueryOptions(
       document: gql('''
         query {
@@ -68,17 +68,11 @@ class UserApiProvider {
       final String message = result.data?['login'];
       if (message == null || message.isEmpty) {
         throw Exception("Respuesta inesperada del servidor");
-        return false;
+        //return false;
       } else {
         print(message);
-        /*if (!message.contains('sesion')) {
-        // Si no contiene la palabra "sesion", establecer una cookie en el WebView
-        final cookieManager = WebviewCookieManager();
-        cookieManager.setCookies([
-          Cookie('cookie', message, /*domain: 'URL_del_sitio_web'*/),
-        ]);
-      }*/
-        return true;
+ 
+        return message;
         // Puedes realizar alguna acción adicional si lo deseas
       }
     }

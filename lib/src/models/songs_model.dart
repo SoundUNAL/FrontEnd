@@ -13,7 +13,7 @@ class SongModel {
 class _Song {
   int? _id;
   int? _albumid;
-  String? _audioid;
+  int? _audioid;
   String? _lyrics;
   String? _publicationDate;
   String? _title;
@@ -38,7 +38,7 @@ class _Song {
   String? get title => _title;
   String? get publicationDate => _publicationDate;
   String? get lyrics => _lyrics;
-  String? get audioid => _audioid;
+  int? get audioid => _audioid;
   int? get albumid => _albumid;
   int? get id => _id;
   String? get imageUrl => _imageUrl;

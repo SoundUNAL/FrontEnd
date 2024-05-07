@@ -7,5 +7,5 @@ class UserRepository {
 
   Future<bool> createUser(User user) => userApiProvider.createUser(user);
   
-  Future<bool> login(String username, String password) => userApiProvider.login(username, password);
+  Future<String> login(String username, String password) => userApiProvider.login(username, password);
 }

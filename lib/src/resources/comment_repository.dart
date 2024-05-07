@@ -5,5 +5,5 @@ import '../models/comments_model.dart';
 class Repository {
   final commentsApiProvider = CommentApiProvider();
 
-  Future<CommentModel> fetchAllSongs() => commentsApiProvider.fetchSongList();
+  Future<CommentModel> fetchAllSongs(audioId) => commentsApiProvider.fetchSongList(audioId);
 }

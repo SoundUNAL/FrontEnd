@@ -82,13 +82,13 @@ class App extends StatelessWidget {
       )
     );  
   }*/
-  // Widget build(BuildContext context) {
-  //   return MaterialApp(
-  //     debugShowCheckedModeBanner: false,
-  //     theme: ThemeData.dark(),
-  //     home: const Scaffold(
-  //       body: LoginScreen(),
-  //     )
-  //   );
-  // }
+ /*Widget build(BuildContext context) {
+     return MaterialApp(
+       debugShowCheckedModeBanner: false,
+       theme: ThemeData.dark(),
+       home: const Scaffold(
+       body: LoginScreen(),
+     )
+   );
+  }*/
 }

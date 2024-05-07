@@ -3,7 +3,8 @@ import 'package:sound_frontend/src/ui/music_player/rep_bar.dart';
 import 'package:sound_frontend/src/ui/music_player/search.dart';
 
 class MusicPlayer extends StatelessWidget {
-  const MusicPlayer({Key? key}) : super(key: key);
+  String imageUrl;
+  MusicPlayer({Key? key, required this.imageUrl}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,12 +13,12 @@ class MusicPlayer extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
       home: Scaffold(
-        body: buildPage(context),
+        body: buildPage(context, imageUrl),
       )
     );
   }
 
-  Widget buildPage(BuildContext context) {
+  Widget buildPage(BuildContext context, imageUrl) {
     return Scaffold(
       /*appBar: AppBar(
         title: const Text('SoUNd Music Player'),
@@ -34,11 +35,16 @@ class MusicPlayer extends StatelessWidget {
             const SizedBox(
               height: 16.0,
             ),
-            Image.asset(
-              'images/dino1.png',
+            Image.network(
+              imageUrl,
               height: 400,
               fit: BoxFit.cover,
             ),
+            /*Image.asset(
+              'images/dino1.png',
+              height: 400,
+              fit: BoxFit.cover,
+            ),*/
           ],
         ),
       )),

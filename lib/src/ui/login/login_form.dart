@@ -4,12 +4,18 @@ import 'package:sound_frontend/src/ui/utils/has_account.dart';
 import '../../blocs/user_bloc.dart';
 import '../../models/user_model.dart';
 import 'package:sound_frontend/src/app.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+
 
 final TextEditingController _passwordController = TextEditingController();
 final TextEditingController _usernameController = TextEditingController();
+final storage = FlutterSecureStorage();
 
 class LoginForm extends StatelessWidget {
 const LoginForm({ Key? key }) : super(key: key);
+
 
   @override
   Widget build(BuildContext context){
@@ -53,7 +59,7 @@ const LoginForm({ Key? key }) : super(key: key);
               var username = _usernameController.text;
               var password = _passwordController.text;
               
-              userBloc.loginUser(username, password);
+              userBloc.loginUser(username, password, storage);
                
               Navigator.push(
                 context,
