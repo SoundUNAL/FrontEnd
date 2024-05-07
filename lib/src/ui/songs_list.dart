@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:sound_frontend/src/ui/login/login_screen.dart';
 import 'package:sound_frontend/src/ui/music_player/music_player.dart';
 import '../models/songs_model.dart';
 import '../blocs/songs_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:sound_frontend/src/ui/login/login_screen.dart';
 
 final storage = FlutterSecureStorage();
 
@@ -61,6 +63,8 @@ class SongList extends StatelessWidget {
                           TextButton(
                           onPressed: () {
                                 Navigator.pop(context); // Cerrar el diálogo
+                                Navigator.push(context,
+                                MaterialPageRoute(builder: (context) => LoginScreen())); // Navegar a la pantalla de inicio de sesión
                           },
                           child: Text('Aceptar'),
                             ),
