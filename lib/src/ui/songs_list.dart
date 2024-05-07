@@ -3,12 +3,14 @@ import '../models/songs_model.dart';
 import '../blocs/songs_bloc.dart';
 
 class SongList extends StatelessWidget {
+  const SongList({super.key});
+
   @override
   Widget build(BuildContext context) {
     bloc.fetchAllSongs();
     return Scaffold(
       appBar: AppBar(
-        title: Text('Songs SoUNd'),
+        title: const Text('Songs SoUNd'),
       ),
       body: StreamBuilder(
         stream: bloc.allSongs,
@@ -18,7 +20,7 @@ class SongList extends StatelessWidget {
           } else if (snapshot.hasError) {
             return Text(snapshot.error.toString());
           }
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         },
       ),
     );

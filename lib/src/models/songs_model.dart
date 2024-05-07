@@ -7,6 +7,7 @@ class SongModel {
     }
   }
 
+  // ignore: library_private_types_in_public_api
   List<_Song> get songs => _songs;
 }
 
