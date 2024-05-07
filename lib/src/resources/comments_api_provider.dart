@@ -1,10 +1,9 @@
 import 'dart:async';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import '../models/songs_model.dart';
+import '../models/comments_model.dart';
 
-class SongApiProvider {
-  Future<SongModel> fetchSongList() async {
-
+class CommentApiProvider {
+  Future<CommentModel> fetchSongList() async {
     final HttpLink httpLink = HttpLink('http://localhost:8000/graphql');
 
     final GraphQLClient client = GraphQLClient(
@@ -15,11 +14,9 @@ class SongApiProvider {
     final QueryOptions options = QueryOptions(
       document: gql('''
         query {
-          songs {
-            id
-            title
-            userid
-            imageUrl
+          getComments(audioId: 24) {
+            comment
+            userID
           }
         }
       '''),
@@ -31,7 +28,7 @@ class SongApiProvider {
       throw Exception(result.exception.toString());
     }
 
-    final List<dynamic> songsData = result.data?['songs'] ?? [];
-    return SongModel.fromJson(songsData);
+    final List<dynamic> commentsData = result.data?['getComments'] ?? [];
+    return CommentModel.fromJson(commentsData);
   }
 }

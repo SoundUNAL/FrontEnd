@@ -20,6 +20,7 @@ class _Song {
   String? _title;
   int? _userid;
   int? _version;
+  String? _imageUrl;
 
   _Song.fromJson(Map<String, dynamic>? song) {
     _id = song?["id"];
@@ -30,6 +31,7 @@ class _Song {
     _title = song?["title"];
     _userid = song?["userid"];
     _version = song?["version"];
+    _imageUrl = song?["imageUrl"];
   }
 
   int? get version => _version;
@@ -40,4 +42,5 @@ class _Song {
   int? get audioid => _audioid;
   int? get albumid => _albumid;
   int? get id => _id;
+  String? get imageUrl => _imageUrl;
 }
