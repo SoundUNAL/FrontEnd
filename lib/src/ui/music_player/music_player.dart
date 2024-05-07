@@ -18,6 +18,8 @@ class MusicPlayer extends StatelessWidget {
     );
   }
 
+  //final GlobalKey<State<RepBar>> repBarKey = GlobalKey<State<RepBar>>();
+  
   Widget buildPage(BuildContext context, imageUrl) {
     return Scaffold(
       /*appBar: AppBar(
@@ -31,7 +33,24 @@ class MusicPlayer extends StatelessWidget {
             const SizedBox(
               height: 16.0,
             ),
-            const Search(),
+            Stack(
+              children: [
+                Positioned(
+                  left: 0,
+                  child: IconButton(onPressed: (){
+                    //repBarKey.currentState?.dispose();
+                    Navigator.pop(context);
+                    
+                  }, 
+                  icon: const Icon(Icons.arrow_back)),
+                ),
+                const Center(
+                  child: Search(),
+                )
+              ],
+
+            ),
+            
             const SizedBox(
               height: 16.0,
             ),

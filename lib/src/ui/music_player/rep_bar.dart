@@ -1,5 +1,6 @@
 // import 'dart:html' as html;
-import 'package:audioplayers/audioplayers.dart';
+// import 'package:audioplayers/audioplayers.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sound_frontend/src/models/comments_model.dart';
@@ -11,6 +12,11 @@ class RepBar extends StatefulWidget {
 
   @override
   State<RepBar> createState() => _RepBarState();
+
+
+  /*void dispose(){
+    _RepBarState().dispose();
+  }*/
 }
 
 class _RepBarState extends State<RepBar> {
@@ -18,7 +24,7 @@ class _RepBarState extends State<RepBar> {
   final audioPlayer = AudioPlayer();
   bool isPlaying = false;
   bool inLoop = false;
-  Duration duration = Duration(seconds: 177); //239
+  Duration duration = Duration.zero;//(seconds: 252); //239 //177
   Duration position = Duration.zero;
   String audioId = '6631aa8916bf3bb1215da036';
   int audioInt = 24;
@@ -31,24 +37,24 @@ class _RepBarState extends State<RepBar> {
     print('INIIIIIIIIIIIT');
 
     // isPlaying?
-    audioPlayer.onPlayerStateChanged.listen((state) {
+    audioPlayer.playerStateStream.listen((state) {
       print('enters playing');
       setState(() {
-        isPlaying = state == PlayerState.PLAYING; 
+        isPlaying = state.playing;
       });
     });
 
 
     // duration
-    audioPlayer.onDurationChanged.listen((newDuration) {
+    audioPlayer.durationStream.listen((newDuration) {
       print('enters duration');
       setState(() {
-        duration = newDuration;
+        duration = newDuration!;
       });
     });
 
     // rep time
-    audioPlayer.onAudioPositionChanged.listen((newPosition) {
+    audioPlayer.positionStream.listen((newPosition) {
       print('enters pos');
       setState(() {
         position = newPosition;
@@ -86,7 +92,9 @@ class _RepBarState extends State<RepBar> {
               if(isPlaying) {
                 await audioPlayer.pause();
               } else {
-                await audioPlayer.resume();
+                //await audioPlayer.resume();
+                await audioPlayer.play();
+                
               }
             },
             icon: Icon(
@@ -114,7 +122,7 @@ class _RepBarState extends State<RepBar> {
               value: position.inSeconds.toDouble(),
             ),
           ),
-          Text(formatTime(duration),
+          Text(formatTime(duration-position),
               style: Theme.of(context).textTheme.bodySmall),
           const SizedBox(width: 8.0),
           IconButton(
@@ -143,10 +151,13 @@ class _RepBarState extends State<RepBar> {
               // Lógica para cambiar el modo de repetición
               if(inLoop){
                 inLoop = false;
-                audioPlayer.setReleaseMode(ReleaseMode.STOP);
+                //audioPlayer.setReleaseMode(ReleaseMode.STOP);
+                //audioPlayer.stop();
+                audioPlayer.setLoopMode(LoopMode.off);
               }else{
                 inLoop = true;
-                audioPlayer.setReleaseMode(ReleaseMode.LOOP);
+                //audioPlayer.setReleaseMode(ReleaseMode.LOOP);
+                audioPlayer.setLoopMode(LoopMode.all);
               }
             },
           ),
@@ -181,9 +192,10 @@ class _RepBarState extends State<RepBar> {
 
   Future setAudio(audioId) async {
     // String url = 'assets/sounds/Y2K_bbno_-_Lalala_Official_Video.mp3';
-    final player = AudioCache(prefix: 'sounds/');
-    final url = await player.load('Y2K_bbno_-_Lalala_Official_Video.mp3');
-    audioPlayer.setUrl(url.path, isLocal: true);
+    //final player = AudioCache(prefix: 'sounds/');
+    //final url = await player.load('Iron_Maiden_-_The_Trooper.mp3');
+    //audioPlayer.setUrl(url.path, isLocal: true);
+    audioPlayer.setUrl('sounds/Iron_Maiden_-_The_Trooper.mp3');
     //String url ='$path/$audioId';
     //audioPlayer.setUrl(url);
     //int d = await audioPlayer.getDuration();
