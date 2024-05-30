@@ -1,0 +1,16 @@
+name : sound-front
+version: '3.8'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    ports:
+      - "52565:52565"
+  
+#  mobile:
+ #   build:
+  #    context: . 
+   #   dockerfile: Dockerfile.mobile
+    #volumes:
+     # - ./output:/output
