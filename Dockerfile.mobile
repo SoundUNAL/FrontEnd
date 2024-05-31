@@ -1,24 +1,20 @@
 # Etapa de construcción
-FROM fischerscode/flutter AS builder
+FROM ghcr.io/cirruslabs/flutter:latest AS builder
 
 # Establecer el directorio de trabajo
 WORKDIR /app
 
-# Copiar el archivo de configuración de Flutter
-COPY pubspec.yaml pubspec.lock ./
+# Copiar solo el archivo de configuración de Flutter primero para instalar dependencias
+COPY pubspec.yaml ./
 
-# Ajustar permisos de los archivos copiados
-# RUN chmod a+r pubspec.yaml pubspec.lock
-
-# Instalar dependencias
+# Ejecutar flutter pub get para instalar dependencias
 RUN flutter pub get
+
+# Copiar el archivo pubspec.lock
+COPY pubspec.lock ./
 
 # Copiar el resto del código fuente de la aplicación
 COPY . .
-
-# Ajustar permisos de los archivos copiados
-RUN find . -type f -exec chmod a+r {} \;
-RUN find . -type d -exec chmod a+rx {} \;
 
 # Construir la aplicación para Android
 RUN flutter build apk --release

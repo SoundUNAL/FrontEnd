@@ -14,8 +14,6 @@ RUN flutter pub get
 #USER root
 COPY pubspec.lock ./
 
-
-
 # Copiar el resto del código fuente de la aplicación
 COPY . .
 
