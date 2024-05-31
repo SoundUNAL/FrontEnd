@@ -1,0 +1,36 @@
+# Etapa de construcción
+FROM ghcr.io/cirruslabs/flutter:latest AS builder
+
+# Establecer el directorio de trabajo
+WORKDIR /app
+
+# Copiar solo el archivo de configuración de Flutter primero para instalar dependencias
+COPY pubspec.yaml ./
+
+# Ejecutar flutter pub get para instalar dependencias
+RUN flutter pub get
+
+# Copiar el archivo pubspec.lock
+COPY pubspec.lock ./
+
+# Copiar el resto del código fuente de la aplicación
+COPY . .
+
+# Construir la aplicación para Android
+RUN flutter build apk --release
+
+# Copiar el APK construido a un directorio fuera del contenedor
+RUN mkdir -p /output
+RUN cp /app/build/app/outputs/flutter-apk/app-release.apk /output/
+
+# Usar una imagen mínima como base final para la salida
+FROM alpine:latest
+
+# Copiar el APK desde la etapa de construcción
+COPY --from=builder /output /output
+
+# Establecer el directorio de trabajo
+WORKDIR /output
+
+# Comando para mantener el contenedor en ejecución
+CMD ["tail", "-f", "/dev/null"]
