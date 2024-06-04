@@ -1,90 +1,94 @@
-//import 'dart:html';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:sound_frontend/src/ui/draga_drop.dart';
+import 'package:sound_frontend/src/ui/login/login_screen.dart';
+import 'package:sound_frontend/src/ui/signup/signup_screen.dart';
+import 'package:sound_frontend/src/ui/welcome/welcome_screen.dart';
+import 'ui/songs_list.dart';
+import 'ui/last_songs_list.dart';
+import 'ui/nav.dart';
+import 'ui/music_player/music_player.dart';
 
-//import 'package:flutter/widgets.dart';
-//import 'package:sound_frontend/src/ui/button_notis.dart';
 
 class App extends StatelessWidget {
-  const App({super.key});
-
   @override
   Widget build(BuildContext context) {
-    const appTitle = 'SoUNd';
     return MaterialApp(
-      title: appTitle,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text(appTitle),
-        ),
-        body: const MyCustomForm(),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark().copyWith(
+        primaryColor: Colors.orange,
+        iconTheme: const IconThemeData(color: Colors.orange),
       ),
-    );
-  }
-}
-
-class MyCustomForm extends StatelessWidget {
-  const MyCustomForm({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Expanded(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+      home: Scaffold(
+        body: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: [
+                Color.fromARGB(255, 35, 35, 35),
+                Color.fromARGB(255, 2, 2, 2),
+                Color.fromARGB(255, 2, 2, 2),
+                Color.fromARGB(255, 35, 35, 35),
+              ],
+              stops: [0.0, 0.05, 0.95, 1.0],
+            ),
+          ),
+          child: Column(
             children: [
               Container(
-                width: 200, // Ancho deseado para ExampleDragTarget
-                child: Align(
-                  alignment: Alignment.topLeft, // Alineación vertical al inicio
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                    child: ExampleDragTarget(),
-                  ),
+                height: 80,
+                child: const NavBar(
+                  title: Text("SoUNd", style: TextStyle(fontSize: 25)),
                 ),
               ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                      child: TextFormField(
-                        decoration: const InputDecoration(
-                          border: UnderlineInputBorder(),
-                          labelText: 'Titulo',
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                      child: TextFormField(
-                        decoration: const InputDecoration(
-                          border: UnderlineInputBorder(),
-                          labelText: 'Descripción',
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                      child: TextFormField(
-                        decoration: const InputDecoration(
-                          border: UnderlineInputBorder(),
-                          labelText: 'Artista',
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+              Container(
+                height: 350,
+                width: 1300,
+                child: SongList(),
               ),
+              Container(
+                height: 250,
+                width: 600,
+                child: LastSongList(),
+              )
             ],
           ),
         ),
-      ],
+      ),
     );
   }
+
+  // Widget build(BuildContext context) {
+  //   return MaterialApp(
+  //     debugShowCheckedModeBanner: false,
+  //     theme: ThemeData.dark(),
+  //     home: const Scaffold(
+  //       body: SignupScreen(),
+  //     )
+  //   );
+  // }
+    /*return MaterialApp(
+      theme: ThemeData.dark(),
+      home: Scaffold(
+        body: SongList(),
+      ),
+    );
+  }*/
+  /*Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark(),
+      home: const Scaffold(
+        body: MusicPlayer(),
+      )
+    );  
+  }*/
+ /*Widget build(BuildContext context) {
+     return MaterialApp(
+       debugShowCheckedModeBanner: false,
+       theme: ThemeData.dark(),
+       home: const Scaffold(
+       body: LoginScreen(),
+     )
+   );
+  }*/
 }

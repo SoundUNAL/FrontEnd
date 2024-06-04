@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:sound_frontend/src/ui/signup/signup_screen.dart';
 import 'package:sound_frontend/src/ui/utils/has_account.dart';
 import '../../blocs/user_bloc.dart';
-import '../../models/user_model.dart';
 import 'package:sound_frontend/src/app.dart';
 
 final TextEditingController _passwordController = TextEditingController();
