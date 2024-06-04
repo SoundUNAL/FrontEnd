@@ -10,4 +10,6 @@ class Repository {
   Future<SongModel> fetchSearchSongs(title) => songsApiProvider.fetchSearchedSong(title);
 
   Future<bool> postSong(albumid, audioid, lyrics, publicationDate, title, userid, version) =>songsApiProvider.postSong(albumid, audioid, lyrics, publicationDate, title, userid, version);
+
+  Future<void> uploadImage(id, imageFile, name) => songsApiProvider.uploadImage(id, imageFile, name);
 }

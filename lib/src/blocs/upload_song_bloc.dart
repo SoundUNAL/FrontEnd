@@ -11,6 +11,10 @@ class UploadSongBloc {
   postSong(int albumid, String audioid, String lyrics, String publicationDate, String title, int userid, int version) async {
     try {
       await _repository.postSong(albumid, audioid, lyrics, publicationDate, title, userid, version);
+      // SongModel songModel = await _repository.fetchSearchSongs(title);
+
+      // _songsFetcher.sink.add(songModel);
+
     } catch (e) {
       _songsFetcher.addError(e);
     }
