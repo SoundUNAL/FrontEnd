@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:sound_frontend/src/blocs/upload_song_bloc.dart';
 import 'package:sound_frontend/src/ui/button_notis.dart';
 import 'package:sound_frontend/src/ui/login/login_screen.dart';
 import 'package:sound_frontend/src/ui/searched_songs.dart';
+import 'package:sound_frontend/src/ui/upload_view.dart';
 
 class NavBar extends StatelessWidget {
     NavBar({required this.title, super.key});
@@ -55,11 +57,20 @@ class NavBar extends StatelessWidget {
             controller: _searchController,
           ),
 
-            const IconButton(
+            IconButton(
               icon: Icon(Icons.account_circle),
               tooltip: 'Profile',
-              onPressed: null,
+              onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const UploadScreen(),
+                  ),
+                );
+
+              },
               iconSize: 60,
+              
             ),
             const ButtonNotis(),
             ],
