@@ -8,4 +8,6 @@ class Repository {
   Future<SongModel> fetchAllSongs() => songsApiProvider.fetchSongList();
 
   Future<SongModel> fetchSearchSongs(title) => songsApiProvider.fetchSearchedSong(title);
+
+  Future<bool> postSong(albumid, audioid, lyrics, publicationDate, title, userid, version) =>songsApiProvider.postSong(albumid, audioid, lyrics, publicationDate, title, userid, version);
 }

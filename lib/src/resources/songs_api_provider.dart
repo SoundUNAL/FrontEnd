@@ -65,4 +65,39 @@ class SongApiProvider {
     final List<dynamic> songsData = result.data?['songByName'] ?? [];
     return SongModel.fromJson(songsData);
   }
+
+  Future<bool> postSong(int albumid, String audioid, String lyrics,
+      String publicationDate, String title, int userid, int version) async {
+    final HttpLink httpLink = HttpLink('http://localhost:8000/graphql');
+
+    final GraphQLClient client = GraphQLClient(
+      cache: GraphQLCache(),
+      link: httpLink,
+    );
+
+    final MutationOptions options = MutationOptions(
+      document: gql('''
+
+        mutation {
+          createSong(
+            albumid: $albumid
+            audioid: "$audioid"
+            lyrics: "$lyrics"
+            publicationDate: "$publicationDate"
+            title: "$title"
+            userid: $userid
+            version: $version
+          )
+        }
+      '''),
+    );
+
+    final QueryResult result = await client.mutate(options);
+
+    if (result.hasException) {
+      throw Exception(result.exception.toString());
+    }
+
+    return true;
+  }
 }
