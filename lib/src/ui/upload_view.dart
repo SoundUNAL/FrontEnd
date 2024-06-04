@@ -6,11 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:rxdart/rxdart.dart';
+import '../blocs/upload_song_bloc.dart';
 
 //import 'package:flutter/widgets.dart';
 
 TextEditingController ControllerTitulo = new TextEditingController();
-TextEditingController ControllerDescripcion = new TextEditingController();
+TextEditingController ControllerLyrics = new TextEditingController();
 TextEditingController ControllerArtista = new TextEditingController();
 
 class App extends StatelessWidget {
@@ -33,6 +35,8 @@ class App extends StatelessWidget {
 
 class UploadScreen extends StatelessWidget {
   const UploadScreen({super.key});
+  
+  get time => null;
 
   
 
@@ -137,9 +141,9 @@ class UploadScreen extends StatelessWidget {
                         child: TextFormField(
                           decoration: const InputDecoration(
                             border: UnderlineInputBorder(),
-                            labelText: 'Descripción',
+                            labelText: 'Lyrics',
                           ),
-                          controller: ControllerDescripcion,
+                          controller: ControllerLyrics,
                         ),
                       ),
                     ),
@@ -163,7 +167,8 @@ class UploadScreen extends StatelessWidget {
           ),
         ),
         ElevatedButton(onPressed: () {
-          print(ControllerTitulo.text + " " + ControllerArtista.text + " "+ ControllerDescripcion.text);
+          bloc.postSong(1,"b","Miau","2024-05-11T12:30:00.000Z","prueba2",1,1);
+          print(ControllerLyrics.text);
         }, child: Text("Subir canción")),
         
       ],
