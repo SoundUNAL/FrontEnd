@@ -167,8 +167,10 @@ class UploadScreen extends StatelessWidget {
           ),
         ),
         ElevatedButton(onPressed: () {
-          bloc.postSong(1,"b","Miau","2024-05-11T12:30:00.000Z","prueba2",1,1);
+          bloc.postSong(1,"b",ControllerLyrics.text.toString(),"2024-05-11T12:30:00.000Z","prueba2",1,1);
+          
           print(ControllerLyrics.text);
+          BuildContext: (context) => const App();
         }, child: Text("Subir canción")),
         
       ],
