@@ -11,9 +11,9 @@ class ButtonNotis extends StatelessWidget{
     return GestureDetector(
       onTap: () => showPopover(
       context: context,
-      bodyBuilder: (context)=> MenuItems(),
-      width: 250,
-      height: 180,
+      bodyBuilder: (context)=> const MenuItems(),
+      width: 500,
+      height: 330,
       direction: PopoverDirection.bottom,
       ),
       child:const Icon(Icons.notifications, size: 60),
