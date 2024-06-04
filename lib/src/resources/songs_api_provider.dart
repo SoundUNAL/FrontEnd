@@ -34,4 +34,35 @@ class SongApiProvider {
     final List<dynamic> songsData = result.data?['songs'] ?? [];
     return SongModel.fromJson(songsData);
   }
+
+  Future<SongModel> fetchSearchedSong(String title) async {
+    final HttpLink httpLink = HttpLink('http://localhost:8000/graphql');
+
+    final GraphQLClient client = GraphQLClient(
+      cache: GraphQLCache(),
+      link: httpLink,
+    );
+
+    final QueryOptions options = QueryOptions(
+      document: gql('''
+        query {
+          songByName(title: "$title") {
+            id
+            title
+            audioid
+            imageUrl
+          }
+        }
+      '''),
+    );
+
+    final QueryResult result = await client.query(options);
+
+    if (result.hasException) {
+      throw Exception(result.exception.toString());
+    }
+
+    final List<dynamic> songsData = result.data?['songByName'] ?? [];
+    return SongModel.fromJson(songsData);
+  }
 }

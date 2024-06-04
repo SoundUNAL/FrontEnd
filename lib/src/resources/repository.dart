@@ -6,4 +6,6 @@ class Repository {
   final songsApiProvider = SongApiProvider();
 
   Future<SongModel> fetchAllSongs() => songsApiProvider.fetchSongList();
+
+  Future<SongModel> fetchSearchSongs(title) => songsApiProvider.fetchSearchedSong(title);
 }

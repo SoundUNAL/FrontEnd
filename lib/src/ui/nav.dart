@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:sound_frontend/src/ui/button_notis.dart';
 import 'package:sound_frontend/src/ui/login/login_screen.dart';
+import 'package:sound_frontend/src/ui/searched_songs.dart';
 
 class NavBar extends StatelessWidget {
-    const NavBar({required this.title, super.key});
+    NavBar({required this.title, super.key});
     final Widget title;
+
+    final TextEditingController _searchController = TextEditingController();
     
     @override
     Widget build(BuildContext context) {
@@ -31,11 +34,27 @@ class NavBar extends StatelessWidget {
                 child: title,
             ),
             SearchBar(
-              trailing: [
-                IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
-              ],
-              hintText: 'Buscar canciones, albumes, artistas o podcasts',
-            ),
+            trailing: [
+              IconButton(
+                onPressed: () {
+                  String searchText = _searchController.text.trim();
+                  if (searchText.isNotEmpty) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            SearchedSongs(searchText: searchText),
+                      ),
+                    );
+                  }
+                },
+                icon: const Icon(Icons.search),
+              ),
+            ],
+            hintText: 'Buscar canciones, álbumes, artistas o podcasts',
+            controller: _searchController,
+          ),
+
             const IconButton(
               icon: Icon(Icons.account_circle),
               tooltip: 'Profile',
