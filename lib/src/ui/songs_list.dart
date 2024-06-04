@@ -10,6 +10,8 @@ import 'package:sound_frontend/src/ui/login/login_screen.dart';
 final storage = FlutterSecureStorage();
 
 class SongList extends StatelessWidget {
+  const SongList({super.key});
+
   @override
   Widget build(BuildContext context) {
     bloc.fetchAllSongs();

@@ -6,6 +6,7 @@ import 'ui/songs_list.dart';
 import 'ui/last_songs_list.dart';
 import 'ui/nav.dart';
 import 'ui/music_player/music_player.dart';
+import 'ui/searched_songs.dart';
 
 
 class App extends StatelessWidget {
@@ -36,7 +37,7 @@ class App extends StatelessWidget {
             children: [
               Container(
                 height: 80,
-                child: const NavBar(
+                child: NavBar(
                   title: Text("SoUNd", style: TextStyle(fontSize: 25)),
                 ),
               ),
@@ -56,6 +57,26 @@ class App extends StatelessWidget {
       ),
     );
   }
+
+  // @override
+  // Widget build(BuildContext context) {
+  //   return MaterialApp(
+  //     debugShowCheckedModeBanner: false,
+  //     theme: ThemeData.dark(),
+  //     home: Scaffold(
+  //       body: SearchedSongs(),
+  //     )
+  //   );
+  // }
+
+
+  /*return MaterialApp(
+      theme: ThemeData.dark(),
+      home: Scaffold(
+        body: SongList(),
+      ),
+    );
+  }*/
 
   // Widget build(BuildContext context) {
   //   return MaterialApp(
@@ -82,13 +103,14 @@ class App extends StatelessWidget {
       )
     );  
   }*/
- /*Widget build(BuildContext context) {
-     return MaterialApp(
-       debugShowCheckedModeBanner: false,
-       theme: ThemeData.dark(),
-       home: const Scaffold(
-       body: LoginScreen(),
-     )
-   );
-  }*/
+//  Widget build(BuildContext context) {
+//      return MaterialApp(
+//        debugShowCheckedModeBanner: false,
+//        theme: ThemeData.dark(),
+//        home: const Scaffold(
+//        body: LoginScreen(),
+//      )
+//    );
+//   } 
+
 }

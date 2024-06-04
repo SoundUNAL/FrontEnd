@@ -7,13 +7,14 @@ class SongModel {
     }
   }
 
+  // ignore: library_private_types_in_public_api
   List<_Song> get songs => _songs;
 }
 
 class _Song {
   int? _id;
   int? _albumid;
-  int? _audioid;
+  String? _audioid;
   String? _lyrics;
   String? _publicationDate;
   String? _title;
@@ -38,7 +39,7 @@ class _Song {
   String? get title => _title;
   String? get publicationDate => _publicationDate;
   String? get lyrics => _lyrics;
-  int? get audioid => _audioid;
+  String? get audioid => _audioid;
   int? get albumid => _albumid;
   int? get id => _id;
   String? get imageUrl => _imageUrl;

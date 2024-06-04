@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:graphql_flutter/graphql_flutter.dart';
 import '../models/user_model.dart';
@@ -39,7 +38,7 @@ class UserApiProvider {
       throw Exception(result.exception.toString());
     } else {
       final String message = result.data?['createUser'];
-      if (message == null || message.isEmpty) {
+      if (message.isEmpty) {
         throw Exception("No se pudo crear el usuario");
         return false;
       } else {
@@ -66,7 +65,7 @@ class UserApiProvider {
       throw Exception(result.exception.toString());
     } else {
       final String message = result.data?['login'];
-      if (message == null || message.isEmpty) {
+      if (message.isEmpty) {
         throw Exception("Respuesta inesperada del servidor");
         //return false;
       } else {
