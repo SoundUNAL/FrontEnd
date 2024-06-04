@@ -8,6 +8,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:rxdart/rxdart.dart';
 import '../blocs/upload_song_bloc.dart';
+//import '../blocs/upimage_bloc.dart';
 
 //import 'package:flutter/widgets.dart';
 
@@ -167,8 +168,8 @@ class UploadScreen extends StatelessWidget {
           ),
         ),
         ElevatedButton(onPressed: () {
-          bloc.postSong(1,"b",ControllerLyrics.text.toString(),"2024-05-11T12:30:00.000Z","prueba2",1,1);
-          
+          bloc.postSong(15,"audioid",ControllerLyrics.text.toString(),"2024-05-11T12:30:00.000Z",ControllerTitulo.text.toString(),1,1);
+          //uploadImage();
           print(ControllerLyrics.text);
           BuildContext: (context) => const App();
         }, child: Text("Subir canción")),
